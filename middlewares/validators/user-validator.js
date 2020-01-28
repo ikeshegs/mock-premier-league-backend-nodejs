@@ -1,6 +1,11 @@
-const check = require('express-validator');
+const {
+  check
+} = require('express-validator');
 
 const emailCheck = check('email')
+  .not()
+  .isEmpty()
+  .withMessage('Email is required')
   .isEmail()
   .withMessage('Invalid Email Format: abcd@efg.xxx')
 
@@ -9,12 +14,10 @@ const nameCheck = check('name')
   .isEmpty()
   .withMessage('Name is required')
 
-const userNameCheck = check('username')
+const passwordCheck = check('password')
   .not()
   .isEmpty()
-  .withMessage('Username is required')
-
-const passwordCheck = check('password')
+  .withMessage('Password is required')
   .isLength({
     min: 8,
     max: 40
@@ -25,7 +28,11 @@ const passwordCheck = check('password')
   .matches(/\D/)
   .withMessage('Password must contain one alphabet')
 
+
 const confirmPasswordCheck = check('confirmPassword')
+  .not()
+  .isEmpty()
+  .withMessage('Confirm password is required')
   .custom((value, {
     req
   }) => {
@@ -37,7 +44,6 @@ const confirmPasswordCheck = check('confirmPassword')
 
 module.exports = {
   emailCheck,
-  userNameCheck,
   nameCheck,
   passwordCheck,
   confirmPasswordCheck
