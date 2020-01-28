@@ -13,7 +13,8 @@ const User = require('../controllers/user-controllers');
 
 const userRoute = express();
 
-userRoute.post('/api/v1/auth/users', [emailCheck, nameCheck, passwordCheck, confirmPasswordCheck], User.signUp);
+userRoute.post('/api/v1/auth/users/signup', [emailCheck, nameCheck, passwordCheck, confirmPasswordCheck], User.signUp);
 
+userRoute.post('/api/v1/auth/users/login', [emailCheck, passwordCheck], User.loginUser);
 
 module.exports = userRoute;

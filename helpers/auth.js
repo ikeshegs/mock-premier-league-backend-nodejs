@@ -8,7 +8,8 @@ const createToken = payload => {
     return;
   }
   const userDetails = {
-    id: payload.id
+    id: payload.id,
+    isAdmin: payload.is_admin
   }
   const token = jwt.sign(userDetails, process.env.JWT_KEY, {
     expiresIn: '24h'
