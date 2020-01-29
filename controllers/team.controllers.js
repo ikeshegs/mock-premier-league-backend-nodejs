@@ -114,7 +114,7 @@ class Team {
   static async getAllTeams(req, res) {
     const decodedUser = req.user;
 
-    if (decodedUser.isAdmin === 'true') {
+    if (decodedUser) {
       try {
         const text = 'SELECT * FROM teams';
         const result = await db.query(text);
@@ -137,7 +137,7 @@ class Team {
       id
     } = req.params;
 
-    if (decodedUser.isAdmin === 'true') {
+    if (decodedUser) {
       try {
         const text = 'SELECT * FROM teams WHERE team_id = $1';
         const value = [id]
@@ -164,6 +164,64 @@ class Team {
           status: 'error',
           message: error.message
         })
+      }
+    }
+  }
+
+  static async editTeam(req, res) {
+    const validator = customValidator(req);
+    if (validator.error) {
+      return res.status(400).json({
+        status: 400,
+        error: validator.error
+      });
+    }
+
+    const decodedUser = req.user;
+    const {
+      id
+    } = req.params;
+
+    if (decodedUser.isAdmin === 'true') {
+      const {
+        teamManagerName,
+        teamPlayers
+      } = req.body;
+
+      try {
+        // Check if the team is in the database
+        const findTeamText = 'SELECT * FROM teams WHERE team_id = $1';
+        const findTeamValue = [id]
+
+        const checkTeam = await db.query(findTeamText, findTeamValue);
+        if (checkTeam.rowCount < 1) {
+          return res.status(404).json({
+            status: 'error',
+            error: 'Team not found',
+          });
+        }
+
+        // Update team information
+        const editText = `UPDATE teams SET team_manager=$2, players=$3, modified_date=$4 WHERE team_id=$1 RETURNING *;`;
+        const editValue = [
+          id, 
+          teamManagerName, 
+          teamPlayers,
+          new Date()
+        ];
+
+        const edited = await db.query(editText, editValue);
+        if (edited) {
+          return res.status(200).json({
+            status: 'successful',
+            data: edited.rows[0]
+          });
+        }
+      } catch (error) {
+        return res.status(400).json({
+          status: 'error',
+          message: error.message
+        });
       }
     }
   }
