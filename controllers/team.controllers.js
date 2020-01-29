@@ -110,6 +110,63 @@ class Team {
       }
     }
   }
+
+  static async getAllTeams(req, res) {
+    const decodedUser = req.user;
+
+    if (decodedUser.isAdmin === 'true') {
+      try {
+        const text = 'SELECT * FROM teams';
+        const result = await db.query(text);
+        return res.status(200).json({
+          status: 'Success',
+          data: result.rows
+        })
+      } catch (error) {
+        return res.status(400).json({
+          status: 'error',
+          message: error.message
+        })
+      }
+    }
+  }
+
+  static async getTeam(req, res) {
+    const decodedUser = req.user;
+    const {
+      id
+    } = req.params;
+
+    if (decodedUser.isAdmin === 'true') {
+      try {
+        const text = 'SELECT * FROM teams WHERE team_id = $1';
+        const value = [id]
+
+        const checkTeam = await db.query(text, value);
+        if (checkTeam.rowCount < 1) {
+          return res.status(404).send({
+            status: 'error',
+            error: 'Team not found',
+          });
+        }
+
+        const selectText = 'SELECT * FROM teams WHERE team_id = $1';
+        const selectValue = [id];
+
+        const selected = await db.query(selectText, selectValue);
+
+        return res.status(200).json({
+          status: 'successful',
+          data: selected.rows[0]
+        });
+      } catch (error) {
+        return res.status(400).json({
+          status: 'error',
+          message: error.message
+        })
+      }
+    }
+  }
 }
 
 module.exports = Team;

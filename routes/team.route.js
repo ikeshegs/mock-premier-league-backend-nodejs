@@ -15,5 +15,9 @@ teamRoute.post('/api/v1/teams', auth.verifyToken, [teamNameCheck, teamPlayersChe
 
 teamRoute.delete('/api/v1/teams/:id', auth.verifyToken, [idCheck], team.deleteTeam);
 
+teamRoute.get('/api/v1/teams', auth.verifyToken, team.getAllTeams)
+
+teamRoute.get('/api/v1/teams/:id', auth.verifyToken, [idCheck], team.getTeam)
+
 module.exports = teamRoute;
 
