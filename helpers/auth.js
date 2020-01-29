@@ -9,7 +9,8 @@ const createToken = payload => {
   }
   const userDetails = {
     id: payload.id,
-    isAdmin: payload.is_admin
+    isAdmin: payload.is_admin,
+    email: payload.email
   }
   const token = jwt.sign(userDetails, process.env.JWT_KEY, {
     expiresIn: '24h'
@@ -17,7 +18,6 @@ const createToken = payload => {
   return token;
 }
 
-// eslint-disable-next-line consistent-return
 const verifyToken = (req, res, next) => {
   const header = req.headers.authorization;
 
@@ -27,11 +27,11 @@ const verifyToken = (req, res, next) => {
 
     jwt.verify(token, process.env.JWT_KEY, (err, result) => {
       if (err) {
-        return res.status(403).json({
+        res.status(403).json({
           status: 'error',
           error: 'Forbidden'
         });
-      } 
+      }
       req.user = result
     })
     next();

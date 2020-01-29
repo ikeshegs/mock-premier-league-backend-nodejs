@@ -3,38 +3,27 @@ const {
 } = require('pg');
 const dotenv = require('dotenv');
 
+const env = process.env.NODE_ENV;
+
 dotenv.config();
 
-let connectionString;
-if (process.env.NODE_ENV === 'test') {
-  connectionString = process.env.TEST_DB_URL;
-} else if (process.env.NODE_ENV === 'production') {
-  connectionString = process.env.PROD_DB_URL;
-} else {
-  connectionString = process.env.DB_URL;
-}
-
-
-const pool = new Pool({
-  connectionString
-});
+const pool = env === 'test'? new Pool({connectionString: process.env.TEST_DB_URL }) : new Pool({connectionString: process.env.DB_URL });
 
 pool.on('connect', () => {
   console.log('connected to the db');
 });
 
 /**
- * Create User Table
+ * Create Team Table
  */
-const createUserTable = () => {
+const createTeamTable = () => {
   const queryText =
     `CREATE TABLE IF NOT EXISTS
-      users(
-        id SERIAL PRIMARY KEY,
-        name VARCHAR(70) NOT NULL,
-        email VARCHAR(60) NOT NULL UNIQUE,
-        password VARCHAR(100) NOT NULL,
-        is_admin VARCHAR(10) NOT NULL,
+      teams(
+        team_id SERIAL PRIMARY KEY,
+        team_name VARCHAR(70) NOT NULL UNIQUE,
+        team_manager VARCHAR(60) NOT NULL,
+        players VARCHAR(255) NOT NULL,
         created_date TIMESTAMP,
         modified_date TIMESTAMP
       )`;
@@ -51,10 +40,10 @@ const createUserTable = () => {
 }
 
 /**
- * Drop User Table
+ * Drop Team Table
  */
-const dropUserTable = () => {
-  const queryText = 'DROP TABLE IF EXISTS users';
+const dropTeamTable = () => {
+  const queryText = 'DROP TABLE IF EXISTS teams';
   pool.query(queryText)
     .then((res) => {
       console.log(res);
@@ -72,8 +61,8 @@ pool.on('remove', () => {
 });
 
 module.exports = {
-  createUserTable,
-  dropUserTable
+  createTeamTable,
+  dropTeamTable
 };
 
 // eslint-disable-next-line import/no-extraneous-dependencies

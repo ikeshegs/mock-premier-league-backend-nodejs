@@ -6,10 +6,10 @@ const {
   passwordCheck,
   confirmPasswordCheck,
   emailCheck
-} = require('../middlewares/validators/user-validator');
+} = require('../middlewares/validators/user.validator');
 
 // controllers
-const User = require('../controllers/user-controllers');
+const User = require('../controllers/user.controllers');
 
 const userRoute = express();
 

@@ -12,6 +12,15 @@ class USER {
    * @returns {object}
    */
   async signUp(req, res) {
+    const validator = customValidator(req);
+
+    if (validator.error) {
+      return res.status(400).json({
+        status: 400,
+        error: validator.error
+      });
+    }
+
     let {
       name,
       email,
@@ -24,22 +33,8 @@ class USER {
       isAdmin = false;
     }
 
-    const validator = customValidator(req);
-
-    if (validator.error) {
-      return res.status(400).json({
-        status: 400,
-        error: validator.error
-      });
-    }
-
     // Hash user password
-    const hash = await bcrypt.hashSync(password, salt, (err, result) => {
-      if (err) {
-        return err;
-      }
-      return result;
-    });
+    const hash = await bcrypt.hashSync(password, salt);
 
     const text = `INSERT INTO users(name, email, password, is_admin, created_date, modified_date) VALUES($1, $2, $3, $4, $5, $6) returning *`;
     const values = [
