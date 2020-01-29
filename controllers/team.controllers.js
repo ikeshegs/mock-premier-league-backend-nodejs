@@ -71,6 +71,45 @@ class Team {
       message: 'Unauthorized Access'
     })
   }
+
+  static async deleteTeam(req, res) {
+    const decodedUser = req.user;
+    const {
+      id
+    } = req.params;
+
+    if (decodedUser.isAdmin === 'true') {
+      try {
+        const text = 'SELECT * FROM teams WHERE team_id = $1';
+        const value = [id]
+
+        const checkTeam = await db.query(text, value);
+        if (checkTeam.rowCount < 1) {
+          return res.status(404).send({
+            status: 'error',
+            error: 'Team not found',
+          });
+        }
+
+        const deleteText = 'DELETE FROM teams WHERE team_id = $1';
+        const deleteValue = [id];
+
+        const deleted = await db.query(deleteText, deleteValue);
+
+        if (deleted.rows.length === 0) {
+          return res.status(200).json({
+            status: 'deleted successfully',
+            message: 'Team deleted successfully'
+          });
+        }
+      } catch (error) {
+        return res.status(400).json({
+          status: 'error',
+          message: error.message
+        });
+      }
+    }
+  }
 }
 
 module.exports = Team;

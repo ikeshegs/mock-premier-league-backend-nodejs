@@ -15,7 +15,7 @@ const teamManagerNameCheck = check('teamManagerName')
 const teamPlayersCheck = check('teamPlayers')
   .not()
   .isEmpty()
-  .withMessage('Password is required')
+  .withMessage('Please this field is required')
 
 module.exports = {
   teamNameCheck,
