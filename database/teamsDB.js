@@ -56,7 +56,6 @@ const dropTeamTable = () => {
 }
 
 pool.on('remove', () => {
-  console.log('User removed');
   process.exit(0);
 });
 

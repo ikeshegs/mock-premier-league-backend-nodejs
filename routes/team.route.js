@@ -3,7 +3,11 @@ const express = require('express');
 const auth = require('../helpers/auth');
 
 // validators
-const { teamNameCheck, teamPlayersCheck, teamManagerNameCheck } = require('../middlewares/validators/team.validator');
+const {
+  teamNameCheck,
+  teamPlayersCheck,
+  teamManagerNameCheck
+} = require('../middlewares/validators/team.validator');
 const idCheck = require('../middlewares/validators/idParams.validator');
 
 // controllers
@@ -22,4 +26,3 @@ teamRoute.get('/api/v1/teams/:id', auth.verifyToken, [idCheck], team.getTeam);
 teamRoute.put('/api/v1/teams/:id', auth.verifyToken, [teamManagerNameCheck, teamPlayersCheck], team.editTeam);
 
 module.exports = teamRoute;
-
