@@ -150,14 +150,9 @@ class Team {
           });
         }
 
-        const selectText = 'SELECT * FROM teams WHERE team_id = $1';
-        const selectValue = [id];
-
-        const selected = await db.query(selectText, selectValue);
-
         return res.status(200).json({
           status: 'successful',
-          data: selected.rows[0]
+          data: checkTeam.rows[0]
         });
       } catch (error) {
         return res.status(400).json({

@@ -26,4 +26,6 @@ fixtureRoute.put('/api/v1/fixtures/:id', auth.verifyToken, [homeTeamScoreCheck, 
 
 fixtureRoute.get('/api/v1/fixtures', auth.verifyToken, Fixture.getAllFixtures);
 
+fixtureRoute.get('/api/v1/fixtures/:id', auth.verifyToken, [idCheck], Fixture.getFixture);
+
 module.exports = fixtureRoute;

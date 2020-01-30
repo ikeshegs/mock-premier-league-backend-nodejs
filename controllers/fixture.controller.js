@@ -205,6 +205,38 @@ class Fixture {
       }
     }
   }
+
+  static async getFixture(req, res) {
+    const decodedUser = req.user;
+    const {
+      id
+    } = req.params;
+
+    if (decodedUser) {
+      try {
+        const text = 'SELECT * FROM fixtures WHERE fixture_id = $1';
+        const value = [id]
+
+        const checkFixture = await db.query(text, value);
+        if (checkFixture.rowCount < 1) {
+          return res.status(404).send({
+            status: 'error',
+            error: 'Fixture not found',
+          });
+        }
+
+        return res.status(200).json({
+          status: 'successful',
+          data: checkFixture.rows[0]
+        });
+      } catch (error) {
+        return res.status(400).json({
+          status: 'error',
+          message: error.message
+        })
+      }
+    }
+  }
 }
 
 module.exports = Fixture;
