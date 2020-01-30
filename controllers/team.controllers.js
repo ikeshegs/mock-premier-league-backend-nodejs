@@ -204,8 +204,8 @@ class Team {
         // Update team information
         const editText = `UPDATE teams SET team_manager=$2, players=$3, modified_date=$4 WHERE team_id=$1 RETURNING *;`;
         const editValue = [
-          id, 
-          teamManagerName, 
+          id,
+          teamManagerName,
           teamPlayers,
           new Date()
         ];
