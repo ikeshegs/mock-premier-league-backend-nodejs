@@ -13,8 +13,10 @@ const User = require('../controllers/user.controllers');
 
 const userRoute = express.Router();
 
-userRoute.post('/api/v1/auth/users/signup', [emailCheck, nameCheck, passwordCheck, confirmPasswordCheck], User.signUp);
+userRoute.post('/api/v1/auth/signup', [emailCheck, nameCheck, passwordCheck, confirmPasswordCheck], User.signUp);
 
-userRoute.post('/api/v1/auth/users/login', [emailCheck, passwordCheck], User.loginUser);
+userRoute.post('/api/v1/auth/login', [emailCheck, passwordCheck], User.loginUser);
+
+userRoute.get('/api/v1/auth/logout', User.logoutUser);
 
 module.exports = userRoute;

@@ -100,7 +100,7 @@ class USER {
 
     if (validator.error) {
       return res.status(400).json({
-        status: 400,
+        error: true,
         message: validator.error
       });
     }
@@ -118,33 +118,52 @@ class USER {
       if (data) {
         const comparePassword = bcrypt.compareSync(password, data.rows[0].password);
 
-        if(!comparePassword) {
+        if (!comparePassword) {
           return res.status(400).json({
-            status: 400,
+            error: true,
             message: 'Invalid user details'
           });
         }
 
+        const {
+          name,
+          email,
+          is_admin
+        } = data.rows[0];
+        // Set the sessions value
+        req.session.key = data.rows[0];
+
         const token = auth.createToken(data.rows[0]);
         return res.status(200).json({
-          status: 200,
+          error: false,
           message: 'User login successful',
           data: {
             token,
-            name: data.rows[0].name,
-            isAdmin: data.rows[0].is_admin
+            name,
+            email,
+            isAdmin: is_admin
           }
         })
       }
     } catch (error) {
       if (error) {
         res.status(400).json({
-          status: 400,
+          error: true,
           message: 'User not found'
         });
       }
     }
-  } 
+  }
+
+  async logoutUser(req, res) {
+    if (req.session.key) {
+      req.session.destroy(function () {
+        res.redirect('/');
+      });
+    } else {
+      res.redirect('/');
+    }
+  }
 }
 
 const user = new USER();
