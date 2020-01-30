@@ -8,12 +8,14 @@ const {
   teamPlayersCheck,
   teamManagerNameCheck
 } = require('../middlewares/validators/team.validator');
-const idCheck = require('../middlewares/validators/idParams.validator');
+const {
+  idCheck
+} = require('../middlewares/validators/params.validator');
 
 // controllers
 const team = require('../controllers/team.controllers');
 
-const teamRoute = express();
+const teamRoute = express.Router();
 
 teamRoute.post('/api/v1/teams', auth.verifyToken, [teamNameCheck, teamPlayersCheck, teamManagerNameCheck], team.createTeam);
 

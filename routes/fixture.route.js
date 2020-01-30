@@ -12,12 +12,14 @@ const {
   awayTeamScorersCheck,
   statusCheck
 } = require('../middlewares/validators/fixture.validator');
-const idCheck = require('../middlewares/validators/idParams.validator');
+const {
+  idCheck
+} = require('../middlewares/validators/params.validator');
 
 // Controllers
 const Fixture = require('../controllers/fixture.controller');
 
-fixtureRoute = express();
+fixtureRoute = express.Router();
 
 fixtureRoute.post('/api/v1/fixtures', auth.verifyToken, [homeTeamNameCheck, awayTeamNameCheck], Fixture.createFixture);
 

@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const userRoute = require('./routes/user.route');
 const teamRoute = require('./routes/team.route');
 const fixtureRoute = require('./routes/fixture.route')
+const searchTeamAndFixturesRoute = require('./routes/searchTeamAndFixtures.route');
 
 dotenv.config();
 const app = express();
@@ -20,10 +21,7 @@ app.use(
 app.use(userRoute);
 app.use(teamRoute);
 app.use(fixtureRoute);
-
-app.get('/', function(req, res) {
-  res.json('Welcome to The Premier League Fixtures and Results App.');
-});
+app.use(searchTeamAndFixturesRoute);
 
 const port = process.env.PORT || 3000;
 

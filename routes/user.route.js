@@ -11,7 +11,7 @@ const {
 // controllers
 const User = require('../controllers/user.controllers');
 
-const userRoute = express();
+const userRoute = express.Router();
 
 userRoute.post('/api/v1/auth/users/signup', [emailCheck, nameCheck, passwordCheck, confirmPasswordCheck], User.signUp);
 
