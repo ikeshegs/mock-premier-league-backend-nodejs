@@ -37,6 +37,7 @@ const createFixtureTable = () => {
         away_team_scorers VARCHAR(200),
         home_team_score INT,
         away_team_score INT,
+        status VARCHAR(20),
         created_date TIMESTAMP,
         modified_date TIMESTAMP
       )`;

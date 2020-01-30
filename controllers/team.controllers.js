@@ -194,6 +194,7 @@ class Team {
         const findTeamValue = [id]
 
         const checkTeam = await db.query(findTeamText, findTeamValue);
+        const { team_name } = checkTeam.rows[0];
         if (checkTeam.rowCount < 1) {
           return res.status(404).json({
             status: 'error',
@@ -202,9 +203,10 @@ class Team {
         }
 
         // Update team information
-        const editText = `UPDATE teams SET team_manager=$2, players=$3, modified_date=$4 WHERE team_id=$1 RETURNING *;`;
+        const editText = `UPDATE teams SET team_name=$2 team_manager=$3, players=$4, modified_date=$5 WHERE team_id=$1 RETURNING *;`;
         const editValue = [
           id,
+          team_name,
           teamManagerName,
           teamPlayers,
           new Date()

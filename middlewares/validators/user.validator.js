@@ -7,6 +7,7 @@ const emailCheck = check('email')
   .isEmpty()
   .withMessage('Email is required')
   .isEmail()
+  .normalizeEmail()
   .withMessage('Invalid Email Format: abcd@efg.xxx')
 
 const nameCheck = check('name')

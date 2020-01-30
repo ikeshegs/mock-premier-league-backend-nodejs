@@ -22,4 +22,6 @@ fixtureRoute.post('/api/v1/fixtures', auth.verifyToken, [homeTeamNameCheck, away
 
 fixtureRoute.delete('/api/v1/fixtures/:id', auth.verifyToken, [idCheck], Fixture.deleteFixture);
 
+fixtureRoute.put('/api/v1/fixtures/:id', auth.verifyToken, [homeTeamScoreCheck, homeTeamScorersCheck, awayTeamScoreCheck, awayTeamScorersCheck], Fixture.editFixture);
+
 module.exports = fixtureRoute;
