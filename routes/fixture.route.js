@@ -9,7 +9,8 @@ const {
   homeTeamScoreCheck,
   awayTeamNameCheck,
   awayTeamScoreCheck,
-  awayTeamScorersCheck
+  awayTeamScorersCheck,
+  statusCheck
 } = require('../middlewares/validators/fixture.validator');
 const idCheck = require('../middlewares/validators/idParams.validator');
 
@@ -26,7 +27,7 @@ fixtureRoute.put('/api/v1/fixtures/:id', auth.verifyToken, [homeTeamScoreCheck, 
 
 fixtureRoute.get('/api/v1/fixtures', auth.verifyToken, Fixture.getAllFixtures);
 
-fixtureRoute.get('/api/v1/fixtures/status', auth.verifyToken, Fixture.getFixturesByStatus);
+fixtureRoute.get('/api/v1/fixtures/status', auth.verifyToken, [statusCheck], Fixture.getFixturesByStatus);
 
 fixtureRoute.get('/api/v1/fixtures/:id', auth.verifyToken, [idCheck], Fixture.getFixture);
 

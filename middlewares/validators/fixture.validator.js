@@ -41,11 +41,19 @@ const awayTeamScoreCheck = check('awayTeamScore')
   .matches(/\d/)
   .withMessage('Away team score must be a number')
 
+const statusCheck = check('status')
+  .not()
+  .isEmpty()
+  .withMessage('Status is required')
+  .matches(/\D/)
+  .withMessage('Status are in alphabets only')
+
 module.exports = {
   homeTeamNameCheck,
   homeTeamScoreCheck,
   homeTeamScorersCheck,
   awayTeamNameCheck,
   awayTeamScoreCheck,
-  awayTeamScorersCheck
+  awayTeamScorersCheck,
+  statusCheck
 };
