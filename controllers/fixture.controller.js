@@ -59,7 +59,7 @@ class Fixture {
               }
             });
           }
-        } 
+        }
         return res.status(400).json({
           status: 'error',
           message: 'Please check your inputs, one of the teams is not in the database.'
@@ -72,6 +72,47 @@ class Fixture {
       }
     }
   }
+
+  static async deleteFixture(req, res) {
+    const decodedUser = req.user;
+    const {
+      id
+    } = req.params;
+
+    if (decodedUser.isAdmin === 'true') {
+      try {
+        const text = 'SELECT * FROM fixtures WHERE fixture_id = $1';
+        const value = [id]
+
+        const checkFixture = await db.query(text, value);
+        if (checkFixture.rowCount < 1) {
+          return res.status(404).send({
+            status: 'error',
+            error: 'Fixture not found',
+          });
+        }
+
+        const deleteText = 'DELETE FROM fixtures WHERE fixture_id = $1';
+        const deleteValue = [id];
+
+        const deleted = await db.query(deleteText, deleteValue);
+
+        if (deleted.rows.length === 0) {
+          return res.status(200).json({
+            status: 'Successful',
+            message: 'Fixture deleted'
+          });
+        }
+      } catch (error) {
+        return res.status(400).json({
+          status: 'error',
+          message: error.message
+        });
+      }
+    }
+  }
+
+  
 }
 
 module.exports = Fixture;

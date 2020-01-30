@@ -20,4 +20,6 @@ fixtureRoute = express();
 
 fixtureRoute.post('/api/v1/fixtures', auth.verifyToken, [homeTeamNameCheck, awayTeamNameCheck], Fixture.createFixture);
 
+fixtureRoute.delete('/api/v1/fixtures/:id', auth.verifyToken, [idCheck], Fixture.deleteFixture);
+
 module.exports = fixtureRoute;
