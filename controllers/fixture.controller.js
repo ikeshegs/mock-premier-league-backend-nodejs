@@ -237,6 +237,29 @@ class Fixture {
       }
     }
   }
+
+  static async getFixturesByStatus(req, res) {
+    const decodedUser = req.user;
+    // status will either be "pending" or "completed"
+    const { status } = req.body;
+    if(decodedUser) {
+      try {
+        const text = 'SELECT * FROM fixtures WHERE status = $1'
+        const value = [status]
+
+        const fixtures = await db.query(text, value);
+        return res.status(200).json({
+          status: 'success',
+          data: fixtures.rows
+        })
+      } catch (error) {
+        return res.status(400).json({
+          status: 'error',
+          message: error.message
+        })
+      }
+    }
+  }
 }
 
 module.exports = Fixture;
