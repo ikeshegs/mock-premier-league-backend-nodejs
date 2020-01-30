@@ -145,7 +145,10 @@ class Fixture {
         const findFixtureValue = [id]
 
         const checkFixture = await db.query(findFixtureText, findFixtureValue);
-        const { home_team, away_team } = checkFixture.rows[0];
+        const {
+          home_team,
+          away_team
+        } = checkFixture.rows[0];
         if (checkFixture.rowCount < 1) {
           return res.status(404).json({
             status: 'error',
@@ -179,6 +182,26 @@ class Fixture {
           status: 'error',
           message: error.message
         });
+      }
+    }
+  }
+
+  static async getAllFixtures(req, res) {
+    const decodedUser = req.user;
+
+    if (decodedUser) {
+      try {
+        const text = 'SELECT * FROM fixtures';
+        const result = await db.query(text);
+        return res.status(200).json({
+          status: 'Success',
+          data: result.rows
+        })
+      } catch (error) {
+        return res.status(400).json({
+          status: 'error',
+          message: error.message
+        })
       }
     }
   }
