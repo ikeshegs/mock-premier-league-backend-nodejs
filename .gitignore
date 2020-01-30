@@ -1,5 +1,9 @@
 /node_modules
 
+# environmental variables
 .env
 
 dump.rdb
+
+# coverage
+/coverage

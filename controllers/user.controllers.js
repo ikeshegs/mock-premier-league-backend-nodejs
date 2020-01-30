@@ -16,8 +16,8 @@ class USER {
 
     if (validator.error) {
       return res.status(400).json({
-        status: 400,
-        error: validator.error
+        error: true,
+        message: validator.error
       });
     }
 
@@ -28,10 +28,6 @@ class USER {
       isAdmin
     } = req.body;
     const salt = bcrypt.genSaltSync(10);
-
-    if (isAdmin === undefined) {
-      isAdmin = false;
-    }
 
     // Hash user password
     const hash = await bcrypt.hashSync(password, salt);
@@ -58,33 +54,31 @@ class USER {
           password
         } = data.rows[0];
         return res.status(201).json({
-          status: 201,
+          error: false,
           message: 'User created successfully',
           data: {
             token,
             id,
             name,
             email,
-            isAdmin: is_admin,
-            password
+            isAdmin: is_admin
           }
         })
       }
     } catch (error) {
       if (error.routine === '_bt_check_unique') {
         res.status(409).json({
-          status: 409,
+          error: true,
           message: 'Email already exists'
         });
-        return;
       }
 
-      if (error) {
-        res.status(400).json({
-          status: 400,
-          message: error.message
-        });
-      }
+      // if (error) {
+      //   res.status(400).json({
+      //     error: true,
+      //     message: error.message
+      //   });
+      // }
     }
   }
 
@@ -147,7 +141,7 @@ class USER {
       }
     } catch (error) {
       if (error) {
-        res.status(400).json({
+        res.status(404).json({
           error: true,
           message: 'User not found'
         });

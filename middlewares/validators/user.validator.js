@@ -3,9 +3,6 @@ const {
 } = require('express-validator');
 
 const emailCheck = check('email')
-  .not()
-  .isEmpty()
-  .withMessage('Email is required')
   .isEmail()
   .normalizeEmail()
   .withMessage('Invalid Email Format: abcd@efg.xxx')
@@ -16,9 +13,6 @@ const nameCheck = check('name')
   .withMessage('Name is required')
 
 const passwordCheck = check('password')
-  .not()
-  .isEmpty()
-  .withMessage('Password is required')
   .isLength({
     min: 8,
     max: 40
@@ -27,13 +21,10 @@ const passwordCheck = check('password')
   .matches(/\d/)
   .withMessage('Password must contain one number')
   .matches(/\D/)
-  .withMessage('Password must contain one alphabet')
+  .withMessage('Password must contain at least one alphabet')
 
 
 const confirmPasswordCheck = check('confirmPassword')
-  .not()
-  .isEmpty()
-  .withMessage('Confirm password is required')
   .custom((value, {
     req
   }) => {

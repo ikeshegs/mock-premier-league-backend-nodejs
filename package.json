@@ -4,11 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
+    "test": "cross-env NODE_ENV=test jest --coverage --testTimeout=10000 && npm run coverage",
     "start-dev": "nodemon app.js",
     "start": "node app.js",
-    "createDB": "node database/usersDB createUserTable",
-    "resetDB": "node database/usersDB dropUserTable && npm run createDB",
+    "createUserDB": "node database/usersDB createUserTable",
+    "createTeamDB": "node database/teamsDB createTeamTable",
+    "createFixtureDB": "node database/fixturesDB createFixtureTable",
+    "dropUserDB": "node database/usersDB dropUserTable",
+    "dropTeamDB": "node database/teamsDB dropTeamTable",
+    "dropFixtureDB": "node database/fixturesDB dropFixtureTable",
+    "resetDB": "npm run dropUserDB && npm run dropTeamDB && npm run dropFixtureDB && npm run createUserDB && npm run createTeamDB && npm run createFixtureDB",
     "pretest": "cross-env NODE_ENV=test npm run resetDB"
   },
   "jest": {
@@ -34,6 +39,7 @@
     "redis": "2.8.0"
   },
   "devDependencies": {
+    "chai": "4.2.0",
     "cross-env": "7.0.0",
     "eslint": "6.8.0",
     "eslint-config-airbnb": "18.0.1",
@@ -44,7 +50,10 @@
     "eslint-plugin-prettier": "3.1.2",
     "jest": "25.1.0",
     "make-runnable": "1.3.6",
+    "mocha": "7.0.1",
+    "mocha-lcov-reporter": "1.3.0",
     "nodemon": "2.0.2",
+    "nyc": "15.0.0",
     "prettier": "1.19.1",
     "supertest": "4.0.2"
   }
