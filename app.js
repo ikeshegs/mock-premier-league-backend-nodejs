@@ -8,7 +8,7 @@ const redisSession = require('./middlewares/session');
 // Routes
 const userRoute = require('./routes/user.route');
 const teamRoute = require('./routes/team.route');
-const fixtureRoute = require('./routes/fixture.route')
+const fixtureRoute = require('./routes/fixture.route');
 const searchTeamAndFixturesRoute = require('./routes/searchTeamAndFixtures.route');
 
 dotenv.config();
@@ -35,16 +35,19 @@ app.get('/', (req, res) => {
     // else go to home page.
     return res
       .status(200)
-      .send('Welcome to Mock Premier League Fixtures and Results. ')
-  };
-})
+      .send('Welcome to Mock Premier League Fixtures and Results. ');
+  }
+});
 
-
+// Return status code 404 when requesting for unknown routes
+app.get('*', (req, res) => {
+  res.status(404).send('Page Not Found');
+});
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, function () {
-  // console.log('Listening on port: ', port);
+app.listen(port, function() {
+  console.log('Listening on port: ', port);
 });
 
 module.exports = app;
