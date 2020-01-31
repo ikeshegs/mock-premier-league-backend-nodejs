@@ -4,6 +4,3 @@
 .env
 
 dump.rdb
-
-# coverage
-/coverage

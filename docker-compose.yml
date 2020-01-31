@@ -1,0 +1,58 @@
+version: '3'
+services: 
+  app: 
+    container_name: mock-premier-league
+    restart: always
+    build: .
+    ports: 
+      - '80:3000'
+    links:
+      - postgres
+      - redis
+    environment: 
+      DB_PROD_HOST: postgres
+      DB_TEST_HOST: postgres-test
+      REDIS_HOST: redis
+    networks: 
+      - webnet
+    # command: ["./wait-for-it.sh", "postgres:5432", "--", "node", "app.js"]
+  
+  postgres:
+    container_name: postgres
+    image: postgres
+    restart: always
+    environment: 
+      POSTGRES_PASSWORD: C00ljoe.
+      POSTGRES_USER: iyke
+      POSTGRES_DB: premierLeagueMockDB
+    ports: 
+      - '5432'
+    networks: 
+      - webnet
+  
+  postgres-test:
+    container_name: postgres-test
+    image: postgres
+    restart: always
+    environment: 
+      POSTGRES_PASSWORD: C00ljoe.
+      POSTGRES_USER: iyke
+      POSTGRES_DB: premierLeagueMockDB-test
+    ports: 
+      - '5432'
+    networks: 
+      - webnet
+
+  redis:
+    container_name: redis
+    image: redis
+    restart: always
+    ports: 
+      - '6379:6379'
+    environment: 
+      REDIS_SECRET: C00oljvyivevghk
+    networks: 
+      - webnet
+
+networks: 
+  webnet:

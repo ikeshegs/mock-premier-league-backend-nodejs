@@ -1,17 +1,6 @@
 const {
-  Pool
-} = require('pg');
-const dotenv = require('dotenv');
-
-const env = process.env.NODE_ENV;
-
-dotenv.config();
-
-const pool = env === 'test'? new Pool({connectionString: process.env.TEST_DB_URL }) : new Pool({connectionString: process.env.DB_URL });
-
-pool.on('connect', () => {
-  console.log('connected to the db');
-});
+  pool
+} = require('./');
 
 /**
  * Create Team Table
