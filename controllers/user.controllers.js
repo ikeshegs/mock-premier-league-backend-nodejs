@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 
-const db = require('../database');
+const { db } = require('../database');
 const customValidator = require('../middlewares/validatorErrors');
 const auth = require('../helpers/auth');
 

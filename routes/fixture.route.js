@@ -31,7 +31,7 @@ fixtureRoute.get('/fixtures', auth.verifyToken, Fixture.getAllFixtures);
 
 fixtureRoute.get('/fixtures/status', auth.verifyToken, [statusCheck], Fixture.getFixturesByStatus);
 
-fixtureRoute.get('/api/v1/fixtures/:id', auth.verifyToken, [idCheck], Fixture.getFixture);
+fixtureRoute.get('/fixtures/:id', auth.verifyToken, [idCheck], Fixture.getFixture);
 
 
 module.exports = fixtureRoute;

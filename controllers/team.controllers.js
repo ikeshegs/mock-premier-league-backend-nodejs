@@ -1,4 +1,6 @@
-const db = require('../database');
+const {
+  db
+} = require('../database');
 const customValidator = require('../middlewares/validatorErrors');
 const capitalize = require('../helpers/capitalizeTeamName');
 
@@ -209,18 +211,18 @@ class Team {
           const findTeamValue = [id]
 
           const checkTeam = await db.query(findTeamText, findTeamValue);
-          const {
-            team_name
-          } = checkTeam.rows[0];
           if (checkTeam.rowCount < 1) {
             return res.status(404).json({
               error: true,
               message: 'Team not found',
             });
           }
+          const {
+            team_name
+          } = checkTeam.rows[0];
 
           // Update team information
-          const editText = `UPDATE teams SET team_name=$2 team_manager=$3, players=$4, modified_date=$5 WHERE team_id=$1 RETURNING *;`;
+          const editText = `UPDATE teams SET team_name=$2, team_manager=$3, players=$4, modified_date=$5 WHERE team_id=$1 RETURNING *;`;
           const editValue = [
             id,
             team_name,

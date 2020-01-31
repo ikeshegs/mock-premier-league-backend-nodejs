@@ -9,7 +9,8 @@ dotenv.config();
 const pool = env === 'test'? new Pool({connectionString: process.env.TEST_DB_URL }) : new Pool({connectionString: process.env.DB_URL });
 
 pool.on('connect', () => {
-  console.log('connected to the db');
+  // console.log('connected to the db');
+  return;
 });
 
 const db = {

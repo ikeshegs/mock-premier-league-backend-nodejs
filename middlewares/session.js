@@ -1,10 +1,8 @@
-const dotenv = require('dotenv');
+require('dotenv').config();
 const redis = require('redis');
 const session = require('express-session');
 const redisStore = require('connect-redis')(session);
 const client = redis.createClient();
-
-dotenv.config()
 
 const redisSession = session({
   secret: process.env.REDIS_SECRET,

@@ -1,4 +1,4 @@
-const db = require('../database');
+const { db } = require('../database');
 const customValidator = require('../middlewares/validatorErrors');
 const capitalize = require('../helpers/capitalizeTeamName');
 
