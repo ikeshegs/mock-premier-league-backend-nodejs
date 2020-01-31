@@ -16,10 +16,10 @@ const limiter = require('../middlewares/rateLimiter');
 
 const userRoute = express.Router();
 
-userRoute.post('/api/v1/auth/signup', limiter, [emailCheck, nameCheck, passwordCheck, confirmPasswordCheck], User.signUp);
+userRoute.post('/signup', limiter, [emailCheck, nameCheck, passwordCheck, confirmPasswordCheck], User.signUp);
 
-userRoute.post('/api/v1/auth/login', limiter, [emailCheck, passwordCheck], User.loginUser);
+userRoute.post('/login', limiter, [emailCheck, passwordCheck], User.loginUser);
 
-userRoute.get('/api/v1/auth/logout', User.logoutUser);
+userRoute.get('/logout', User.logoutUser);
 
 module.exports = userRoute;

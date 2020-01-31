@@ -21,15 +21,15 @@ const Fixture = require('../controllers/fixture.controller');
 
 fixtureRoute = express.Router();
 
-fixtureRoute.post('/api/v1/fixtures', auth.verifyToken, [homeTeamNameCheck, awayTeamNameCheck], Fixture.createFixture);
+fixtureRoute.post('/fixtures', auth.verifyToken, [homeTeamNameCheck, awayTeamNameCheck], Fixture.createFixture);
 
-fixtureRoute.delete('/api/v1/fixtures/:id', auth.verifyToken, [idCheck], Fixture.deleteFixture);
+fixtureRoute.delete('/fixtures/:id', auth.verifyToken, [idCheck], Fixture.deleteFixture);
 
-fixtureRoute.put('/api/v1/fixtures/:id', auth.verifyToken, [homeTeamScoreCheck, homeTeamScorersCheck, awayTeamScoreCheck, awayTeamScorersCheck], Fixture.editFixture);
+fixtureRoute.put('/fixtures/:id', auth.verifyToken, [homeTeamScoreCheck, homeTeamScorersCheck, awayTeamScoreCheck, awayTeamScorersCheck], Fixture.editFixture);
 
-fixtureRoute.get('/api/v1/fixtures', auth.verifyToken, Fixture.getAllFixtures);
+fixtureRoute.get('/fixtures', auth.verifyToken, Fixture.getAllFixtures);
 
-fixtureRoute.get('/api/v1/fixtures/status', auth.verifyToken, [statusCheck], Fixture.getFixturesByStatus);
+fixtureRoute.get('/fixtures/status', auth.verifyToken, [statusCheck], Fixture.getFixturesByStatus);
 
 fixtureRoute.get('/api/v1/fixtures/:id', auth.verifyToken, [idCheck], Fixture.getFixture);
 

@@ -17,14 +17,14 @@ const team = require('../controllers/team.controllers');
 
 const teamRoute = express.Router();
 
-teamRoute.post('/api/v1/teams', auth.verifyToken, [teamNameCheck, teamPlayersCheck, teamManagerNameCheck], team.createTeam);
+teamRoute.post('/teams', auth.verifyToken, [teamNameCheck, teamPlayersCheck, teamManagerNameCheck], team.createTeam);
 
-teamRoute.delete('/api/v1/teams/:id', auth.verifyToken, [idCheck], team.deleteTeam);
+teamRoute.delete('/teams/:id', auth.verifyToken, [idCheck], team.deleteTeam);
 
-teamRoute.get('/api/v1/teams', auth.verifyToken, team.getAllTeams);
+teamRoute.get('/teams', auth.verifyToken, team.getAllTeams);
 
-teamRoute.get('/api/v1/teams/:id', auth.verifyToken, [idCheck], team.getTeam);
+teamRoute.get('/teams/:id', auth.verifyToken, [idCheck], team.getTeam);
 
-teamRoute.put('/api/v1/teams/:id', auth.verifyToken, [teamManagerNameCheck, teamPlayersCheck], team.editTeam);
+teamRoute.put('/teams/:id', auth.verifyToken, [teamManagerNameCheck, teamPlayersCheck], team.editTeam);
 
 module.exports = teamRoute;

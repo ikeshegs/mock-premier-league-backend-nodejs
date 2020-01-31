@@ -8,6 +8,6 @@ const searchTeamAndFixtures = require('../controllers/searchTeamAndFixtures.cont
 
 const searchTeamAndFixturesRoute = express.Router();
 
-searchTeamAndFixturesRoute.get('/api/v1/search/:teamName', [nameParamCheck], searchTeamAndFixtures.search);
+searchTeamAndFixturesRoute.get('/search/:teamName', [nameParamCheck], searchTeamAndFixtures.search);
 
 module.exports = searchTeamAndFixturesRoute;

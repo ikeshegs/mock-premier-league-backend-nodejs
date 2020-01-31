@@ -23,10 +23,10 @@ app.use(
 
 app.use(redisSession);
 
-app.use(userRoute);
-app.use(teamRoute);
-app.use(fixtureRoute);
-app.use(searchTeamAndFixturesRoute);
+app.use('/api/v1/auth', userRoute);
+app.use('/api/v1', teamRoute);
+app.use('/api/v1', fixtureRoute);
+app.use('/api/v1', searchTeamAndFixturesRoute);
 
 app.get('/', (req, res) => {
   if (req.session.key) {
