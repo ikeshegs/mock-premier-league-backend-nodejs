@@ -41,7 +41,7 @@ app.get('/', (req, res) => {
 
 // Return status code 404 when requesting for unknown routes
 app.get('*', (req, res) => {
-  res.status(404).send('Page Not Found');
+  res.status(404).send('Page Not Found :(');
 });
 
 const port = process.env.PORT || 3000;
