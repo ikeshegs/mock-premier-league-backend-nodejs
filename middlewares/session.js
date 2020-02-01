@@ -5,9 +5,9 @@ const redisStore = require('connect-redis')(session);
 const client = redis.createClient();
 
 const redisSession = session({
-  secret: process.env.REDIS_SECRET,
+  secret: process.env.REDIS_SECRET || process.env.REDIS_CLOUD_PASSWORD,
   store: new redisStore({
-    host: process.env.REDIS_HOST || 'localhost',
+    host: process.env.REDIS_CLOUD_HOST || 'localhost',
     port: 6379,
     client: client,
     ttl: 1000
