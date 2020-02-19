@@ -6,7 +6,7 @@ const capitalize = require('../helpers/capitalizeTeamName');
 
 class Team {
   static async createTeam(req, res) {
-    if (req.session.key) {
+    // if (req.session.key) {
       const validator = customValidator(req);
 
       if (validator.error) {
@@ -77,13 +77,13 @@ class Team {
         error: true,
         message: 'Unauthorized Access'
       })
-    } else {
-      res.redirect('/');
-    }
+    // } else {
+    //   res.redirect('/');
+    // }
   }
 
   static async deleteTeam(req, res) {
-    if (req.session.key) {
+    // if (req.session.key) {
       const decodedUser = req.user;
       const {
         id
@@ -119,14 +119,14 @@ class Team {
             message: error.message
           });
         }
-      } else {
-        res.redirect('/');
-      }
+      // } else {
+      //   res.redirect('/');
+      // }
     }
   }
 
   static async getAllTeams(req, res) {
-    if (req.session.key) {
+    // if (req.session.key) {
       const decodedUser = req.user;
       if (decodedUser) {
         try {
@@ -143,13 +143,13 @@ class Team {
           })
         }
       }
-    } else {
-      res.redirect("/");
-    }
+    // } else {
+    //   res.redirect("/");
+    // }
   }
 
   static async getTeam(req, res) {
-    if (req.session.key) {
+    // if (req.session.key) {
       const decodedUser = req.user;
       const {
         id
@@ -179,13 +179,13 @@ class Team {
           })
         }
       }
-    } else {
-      res.redirect("/");
-    }
+    // } else {
+    //   res.redirect("/");
+    // }
   }
 
   static async editTeam(req, res) {
-    if (req.session.key) {
+    // if (req.session.key) {
       const validator = customValidator(req);
       if (validator.error) {
         return res.status(400).json({
@@ -245,9 +245,9 @@ class Team {
           });
         }
       }
-    } else {
-      res.redirect("/");
-    }
+    // } else {
+    //   res.redirect("/");
+    // }
   }
 }
 

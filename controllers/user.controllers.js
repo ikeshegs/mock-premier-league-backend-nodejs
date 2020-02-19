@@ -106,12 +106,11 @@ class USER {
       password
     } = req.body;
 
-    const text = `SELECT password FROM users WHERE email = $1`;
+    const text = `SELECT * FROM users WHERE email = $1`;
     const values = [email];
 
     try {
       const data = await db.query(text, values);
-      console.log(data.rows)
       if (data) {
         const comparePassword = bcrypt.compareSync(password, data.rows[0].password);
 

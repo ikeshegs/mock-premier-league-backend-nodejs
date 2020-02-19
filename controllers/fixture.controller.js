@@ -3,7 +3,7 @@ const customValidator = require('../middlewares/validatorErrors');
 
 class Fixture {
   static async createFixture(req, res) {
-    if (req.session.key) {
+    // if (req.session.key) {
       const validator = customValidator(req);
       if (validator.error) {
         return res.status(400).json({
@@ -77,13 +77,13 @@ class Fixture {
           });
         }
       }
-    } else {
-      res.redirect("/");
-    }
+    // } else {
+    //   res.redirect("/");
+    // }
   }
 
   static async deleteFixture(req, res) {
-    if (req.session.key) {
+    // if (req.session.key) {
       const decodedUser = req.user;
       const {
         id
@@ -120,13 +120,13 @@ class Fixture {
           });
         }
       }
-    } else {
-      res.redirect("/");
-    }
+    // } else {
+    //   res.redirect("/");
+    // }
   }
 
   static async editFixture(req, res) {
-    if (req.session.key) {
+    // if (req.session.key) {
       const validator = customValidator(req);
       if (validator.error) {
         return res.status(400).json({
@@ -195,13 +195,13 @@ class Fixture {
           });
         }
       }
-    } else {
-      res.redirect("/");
-    }
+    // } else {
+    //   res.redirect("/");
+    // }
   }
 
   static async getAllFixtures(req, res) {
-    if (req.session.key) {
+    // if (req.session.key) {
       const decodedUser = req.user;
       if (decodedUser) {
         try {
@@ -219,13 +219,13 @@ class Fixture {
           })
         }
       }
-    } else {
-      res.redirect("/");
-    }
+    // } else {
+    //   res.redirect("/");
+    // }
   }
 
   static async getFixture(req, res) {
-    if (req.session.key) {
+    // if (req.session.key) {
       const decodedUser = req.user;
       const {
         id
@@ -256,13 +256,13 @@ class Fixture {
           })
         }
       }
-    } else {
-      res.redirect("/");
-    }
+    // } else {
+    //   res.redirect("/");
+    // }
   }
 
   static async getFixturesByStatus(req, res) {
-    if (req.session.key) {
+    // if (req.session.key) {
       const validator = customValidator(req);
       if (validator.error) {
         return res.status(400).json({
@@ -294,9 +294,9 @@ class Fixture {
           })
         }
       }
-    } else {
-      res.redirect("/");
-    }
+    // } else {
+    //   res.redirect("/");
+    // }
   }
 }
 
