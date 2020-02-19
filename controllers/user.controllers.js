@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt');
 
-const { db } = require('../database');
+const {
+  db
+} = require('../database');
 const customValidator = require('../middlewares/validatorErrors');
 const auth = require('../helpers/auth');
 
@@ -104,11 +106,12 @@ class USER {
       password
     } = req.body;
 
-    const text = `SELECT * FROM users WHERE email = $1`;
+    const text = `SELECT password FROM users WHERE email = $1`;
     const values = [email];
 
     try {
       const data = await db.query(text, values);
+      console.log(data.rows)
       if (data) {
         const comparePassword = bcrypt.compareSync(password, data.rows[0].password);
 
@@ -125,7 +128,7 @@ class USER {
           is_admin
         } = data.rows[0];
         // Set the sessions value
-        req.session.key = data.rows[0];
+        // req.session.key = data.rows[0];
 
         const token = auth.createToken(data.rows[0]);
         return res.status(200).json({
@@ -140,12 +143,10 @@ class USER {
         })
       }
     } catch (error) {
-      if (error) {
-        res.status(404).json({
-          error: true,
-          message: 'User not found'
-        });
-      }
+      res.status(404).json({
+        error: true,
+        message: 'User not found'
+      });
     }
   }
 
