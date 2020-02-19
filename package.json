@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test jest --coverage --testTimeout=10000 && npm run coverage",
+    "test": "cross-env NODE_ENV=test jest --coverage --testTimeout=10000",
     "start-dev": "nodemon app.js",
     "start": "node app.js",
     "createUserDB": "node database/usersDB createUserTable",

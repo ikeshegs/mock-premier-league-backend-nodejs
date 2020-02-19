@@ -4,3 +4,6 @@
 .env
 
 dump.rdb
+
+# coverage files
+/coverage
