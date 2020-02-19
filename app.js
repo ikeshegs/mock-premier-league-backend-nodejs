@@ -28,16 +28,21 @@ app.use('/api/v1', teamRoute);
 app.use('/api/v1', fixtureRoute);
 app.use('/api/v1', searchTeamAndFixturesRoute);
 
-// app.get('/', (req, res) => {
-//   if (req.session.key) {
-//     return;
-//   } else {
-//     // else go to home page.
-//     return res
-//       .status(200)
-//       .send('Welcome to Mock Premier League Fixtures and Results. ');
-//   }
-// });
+app.get('/', (req, res) => {
+  // if (req.session.key) {
+  //   return;
+  // } else {
+  //   // else go to home page.
+  //   return res
+  //     .status(200)
+  //     .json({ message: 'Welcome to Mock Premier League Fixtures and Results.' });
+  // }
+  return res
+    .status(200)
+    .json({
+      message: 'Welcome to Mock Premier League Fixtures and Results.'
+    });
+});
 
 // Return status code 404 when requesting for unknown routes
 app.get('*', (req, res) => {
@@ -46,7 +51,7 @@ app.get('*', (req, res) => {
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, function() {
+app.listen(port, function () {
   console.log('Listening on port: ', port);
 });
 
