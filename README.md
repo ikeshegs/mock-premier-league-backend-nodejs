@@ -61,6 +61,10 @@ Mock Premier League is an app that mocks the English Premier League teams and ma
 
 - Run `npm run start-dev`
 
+### Documentation
+
+- Find docs [here](https://documenter.getpostman.com/view/5586593/SzKSUfvN?version=latest)
+
 ### Author
 
 - Ikechukwu Okoro
